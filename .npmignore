@@ -1,0 +1,10 @@
+node_modules
+npm_recovery_codes.txt
+index.ts
+jest.config.js
+.eslintrc.js
+tsconfig.json
+tsconfig.build.json
+tsconfig.bundle.json
+src/**/index.ts
+src/**/index.test.ts
