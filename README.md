@@ -21,3 +21,28 @@ Contains many useful utility functions which built in JavaScript datatypes inter
     * toExponentialPairs: (num: number) => [number, number]
     * decimalDigitsCount: (num: number) => number
     * intDigitsCount: (num: number) => number
+
+# example
+```
+import '@samuel871211/utils'
+
+Math.getRandomIntInclusive(1, 5)
+Math.hasPrimeFactorOf(1, 2, 3)
+Math.hasMultipleOf(1, 2, 3)
+Math.getArithmeticSequence(1, 2, 3)
+Math.fixMinMaxInterval(1, 2)
+Math.getGeometricSeries(2, 1)
+Math.getColumnIndexSign(1)
+Math.getRandomEnglishString(1)
+Math.getBestArithmeticSequence(1, 2, 3, 4)
+
+const arr = [1, 2, 3]
+arr.getRandomItem()
+arr.lastItem()
+arr.lastIdx()
+
+Number.isPrime(2)
+Number.toExponentialPairs(2.56)
+Number.decimalDigitsCount(4.78)
+Number.intDigitsCount(34778.02)
+```

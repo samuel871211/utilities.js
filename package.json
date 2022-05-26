@@ -1,6 +1,6 @@
 {
   "name": "@samuel871211/utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Contains many useful utility functions which built in JavaScript datatypes internally",
   "main": "index.js",
   "types": "src/index.d.ts",
