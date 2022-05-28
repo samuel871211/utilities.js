@@ -28,6 +28,7 @@ describe('Math', () => {
         [3000, 4000],
         [356, 20],
         [7, 3],
+        [100, 99],
         [-32575, -2.3],
         [-93254.215214, 3.2],
         [0.32514789, 35],
@@ -39,6 +40,12 @@ describe('Math', () => {
             expect(result).toBeGreaterThanOrEqual(Math.min(data[0], data[1]))
             expect(result).toBeLessThanOrEqual(Math.max(data[0], data[1]))
             expect(Number.isInteger(result)).toBeTruthy()
+        })
+        test(`getRandomFloatInclusive of ${data}`, () => {
+            const result = Math.getRandomFloatInclusive(data[0], data[1])
+            expect(result).toBeGreaterThanOrEqual(Math.min(data[0], data[1]))
+            expect(result).toBeLessThanOrEqual(Math.max(data[0], data[1]))
+            expect(Number.isInteger(result)).toBeFalsy()
         })
         test(`fixMinMaxInterval of ${data}`, () => {
             const inputMin = data[0]
@@ -58,17 +65,41 @@ describe('Math', () => {
             expect(min).toBeLessThanOrEqual(inputMin)
             expect(max).toBeGreaterThanOrEqual(inputMax)
         })
-        test(`getBestArithmeticSequence of ${data}`, () => {
-            const result = Math.getBestArithmeticSequence(data[0], data[1])
+        test(`getBestDataInterval of ${data}`, () => {
+            const result = Math.getBestDataInterval(data[0], data[1])
+            console.log(result)
             expect(result).toContain(0)
             expect(result.length).toBeLessThanOrEqual(16)
             expect(result.length).toBeGreaterThan(6)
-            expect(result[0] - result[1]).toBeGreaterThanOrEqual(0.1)
+        })
+    }
+    const g8FloatTests = [
+        [0.32, 0.33],
+        [-0.1120, -0.11201],
+        [3.78987, 3.80]
+    ]
+    for (const g8FloatTest of g8FloatTests) {
+        test(`getRandomFloatInclusive of ${g8FloatTest}`, () => {
+            const result = Math.getRandomFloatInclusive(g8FloatTest[0], g8FloatTest[1])
+            expect(result).toBeGreaterThanOrEqual(Math.min(g8FloatTest[0], g8FloatTest[1]))
+            expect(result).toBeLessThanOrEqual(Math.max(g8FloatTest[0], g8FloatTest[1]))
+            expect(Number.isInteger(result)).toBeFalsy()
+        })
+        test(`getRandomFloatInclusive of ${g8FloatTest} with fixed decimal digits`, () => {
+            const result = Math.getRandomFloatInclusive(g8FloatTest[0], g8FloatTest[1], { decimalDigits: 5 })
+            expect(result).toBeGreaterThanOrEqual(Math.min(g8FloatTest[0], g8FloatTest[1]))
+            expect(result).toBeLessThanOrEqual(Math.max(g8FloatTest[0], g8FloatTest[1]))
+            expect(Number.isInteger(result)).toBeFalsy()
+            expect(Number.decimalDigitsCount(result)).toBeLessThanOrEqual(5)
         })
     }
     test('getRandomIntInclusive of 0.3, 0.7854', () => {
         const result = Math.getRandomIntInclusive(0.3, 0.7815)
         expect(result).toBe(0.3)
+    })
+    test('getRandomIntInclusive of 1 1', () => {
+        const result = Math.getRandomIntInclusive(1, 1)
+        expect(result).toBe(1)
     })
     test('getRandomIntInclusive of -48, -48', () => {
         const result = Math.getRandomIntInclusive(-48, -48)
@@ -120,6 +151,17 @@ describe('Math', () => {
         expect(Math.getColumnIndexSign(703)).toBe('ZZ')
         expect(Math.getColumnIndexSign(1025)).toBe('ZZ')
     })
+    test('getBestArithmeticSequence', () => {
+        expect(Math.getBestArithmeticSequence(0, 4, 4)).toEqual([0, 2, 4])
+        expect(Math.getBestArithmeticSequence(0, 4, 3)).toEqual([0, 2, 4])
+        expect(Math.getBestArithmeticSequence(0, 5, 4)).toEqual([0, 2, 4])
+        expect(Math.getBestArithmeticSequence(0, 1, 4)).toEqual([0, 1])
+        expect(Math.getBestArithmeticSequence(-300.1, -600, 2)).toEqual([-600, -301])
+        expect(Math.getBestArithmeticSequence(0, 14, 6)).toEqual([0, 3, 6, 9, 12])
+        expect(Math.getBestArithmeticSequence(0, 15, 6)).toEqual([0, 3, 6, 9, 12, 15])
+        expect(Math.getBestArithmeticSequence(0, 29, 2)).toEqual([0, 29])
+        expect(Math.getBestArithmeticSequence(0, 29, 7)).toEqual([0, 5, 10, 15, 20, 25])
+    })
 })
 
 describe('Number', () => {
@@ -154,4 +196,5 @@ describe('Number', () => {
         expect(Number.intDigitsCount(-16512.0212)).toBe(5)
         expect(Number.intDigitsCount(-0.254)).toBe(1)
     })
+
 })

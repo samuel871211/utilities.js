@@ -2,9 +2,9 @@
 Object.defineProperty(exports, '__esModule', { value: true })
 Math.hasPrimeFactorOf = function (min, max, divisor) {
     var _a
-    _a = [this.min(min, max), this.max(min, max)], min = _a[0], max = _a[1]
-    min = this.floor(min)
-    max = this.ceil(max)
+    _a = [Math.min(min, max), Math.max(min, max)], min = _a[0], max = _a[1]
+    min = Math.floor(min)
+    max = Math.ceil(max)
     for (var i = min; i <= max; i++) {
         if (i % divisor === 0)
             return true
@@ -13,9 +13,9 @@ Math.hasPrimeFactorOf = function (min, max, divisor) {
 }
 Math.hasMultipleOf = function (min, max, dividend) {
     var _a
-    _a = [this.min(min, max), this.max(min, max)], min = _a[0], max = _a[1]
-    min = this.floor(min)
-    max = this.ceil(max)
+    _a = [Math.min(min, max), Math.max(min, max)], min = _a[0], max = _a[1]
+    min = Math.floor(min)
+    max = Math.ceil(max)
     for (var i = min; i <= max; i++) {
         if (dividend % i === 0)
             return true
@@ -24,12 +24,37 @@ Math.hasMultipleOf = function (min, max, dividend) {
 }
 Math.getRandomIntInclusive = function (min, max) {
     var _a
-    _a = [this.min(min, max), this.max(min, max)], min = _a[0], max = _a[1]
-    if (this.ceil(min) === this.ceil(max))
+    _a = [Math.min(min, max), Math.max(min, max)], min = _a[0], max = _a[1]
+    if (Math.ceil(min) === Math.ceil(max))
         return min
-    min = this.ceil(min)
-    max = this.floor(max)
-    return this.floor(this.random() * (max - min + 1) + min)
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+Math.getRandomFloatInclusive = function (min, max, opt) {
+    var _a
+    _a = [Math.min(min, max), Math.max(min, max)], min = _a[0], max = _a[1]
+    var decimalDigits = opt === null || opt === void 0 ? void 0 : opt.decimalDigits
+    var integerToBeAdd = Math.getRandomIntInclusive(0, Math.floor(max - min))
+    var result = min + integerToBeAdd
+    var floatToBeAdd = 0
+    var difference = max - result
+    if (difference < 0)
+        throw new Error('difference < 0')
+    else if (difference === 0)
+        floatToBeAdd = Math.random() * -1
+    else if (difference >= 1)
+        floatToBeAdd = Math.random()
+    else if (difference < 1) {
+        // 假設difference = 0.25，先隨機生成0~24的正整數，加上Math.random()之後，再除以100，可確保 0 <= floatToBeAdd <= 0.25
+        var decimalDigitsCount = Number.decimalDigitsCount(difference)
+        console.log({ difference: difference, lower: difference * Math.pow(10, decimalDigitsCount) - 1, 分數: Math.pow(10, decimalDigitsCount * -1) })
+        var floatToBeAdd_1 = (Math.getRandomIntInclusive(0, difference * Math.pow(10, decimalDigitsCount) - 1) + Math.random()) * Math.pow(10, decimalDigitsCount * -1)
+        if (floatToBeAdd_1 > difference)
+            throw new Error('floatToBeAdd > difference')
+    }
+    result += floatToBeAdd
+    return decimalDigits ? parseFloat(result.toFixed(decimalDigits)) : result
 }
 Math.getArithmeticSequence = function (start, tolerance, count) {
     tolerance = parseFloat(tolerance.toFixed(1))
@@ -43,18 +68,18 @@ Math.getArithmeticSequence = function (start, tolerance, count) {
 }
 Math.fixMinMaxInterval = function (min, max) {
     var _a
-    _a = [this.min(min, max), this.max(min, max)], min = _a[0], max = _a[1]
+    _a = [Math.min(min, max), Math.max(min, max)], min = _a[0], max = _a[1]
     if (min > 0)
         min = 0
     if (max < 0)
         max = 0
-    min = this.floor(min)
-    max = this.ceil(max)
-    var intDigitsCountOfMin = this.abs(min).toString().length
-    var intDigitsCountOfMax = this.abs(max).toString().length
-    var multiplier = this.pow(10, this.max(intDigitsCountOfMin, intDigitsCountOfMax) - 1)
-    min = this.floor(min / multiplier) * multiplier
-    max = this.ceil(max / multiplier) * multiplier
+    min = Math.floor(min)
+    max = Math.ceil(max)
+    var intDigitsCountOfMin = Math.abs(min).toString().length
+    var intDigitsCountOfMax = Math.abs(max).toString().length
+    var multiplier = Math.pow(10, Math.max(intDigitsCountOfMin, intDigitsCountOfMax) - 1)
+    min = Math.floor(min / multiplier) * multiplier
+    max = Math.ceil(max / multiplier) * multiplier
     return [min, max]
 }
 Math.getGeometricSeries = function (base, power) {
@@ -69,9 +94,9 @@ Math.getColumnIndexSign = function (columnIdx) {
     var quotient = Math.floor((columnIdx - 1) / 26)
     var remainder = (columnIdx - 1) % 26 // 決定個位數的值
     var digits = -1
-    if (columnIdx >= this.getGeometricSeries(26, 0) && columnIdx < this.getGeometricSeries(26, 1))
+    if (columnIdx >= Math.getGeometricSeries(26, 0) && columnIdx < Math.getGeometricSeries(26, 1))
         digits = 1
-    else if (columnIdx >= this.getGeometricSeries(26, 1) && columnIdx < this.getGeometricSeries(26, 2))
+    else if (columnIdx >= Math.getGeometricSeries(26, 1) && columnIdx < Math.getGeometricSeries(26, 2))
         digits = 2
     if (digits === 1)
         return String.fromCharCode(remainder + 65)
@@ -88,18 +113,18 @@ Math.getRandomEnglishString = function (len) {
     var a = 97
     var z = 122
     for (var i = 0; i < len; i++) {
-        var isLowerCase = this.getRandomIntInclusive(0, 1) === 0
-        var charCode = isLowerCase ? this.getRandomIntInclusive(A, Z) : this.getRandomIntInclusive(a, z)
+        var isLowerCase = Math.getRandomIntInclusive(0, 1) === 0
+        var charCode = isLowerCase ? Math.getRandomIntInclusive(A, Z) : Math.getRandomIntInclusive(a, z)
         result.push(String.fromCharCode(charCode))
     }
     return result.join('')
 }
-Math.getBestArithmeticSequence = function (min, max, minLen, maxLen) {
+Math.getBestDataInterval = function (min, max, minLen, maxLen) {
     var _a, _b
     if (minLen === void 0) { minLen = 5 }
     if (maxLen === void 0) { maxLen = 15 }
-    _a = this.fixMinMaxInterval(min, max), min = _a[0], max = _a[1]
-    _b = [this.min(minLen, maxLen), this.max(minLen, maxLen)], minLen = _b[0], maxLen = _b[1]
+    _a = Math.fixMinMaxInterval(min, max), min = _a[0], max = _a[1]
+    _b = [Math.min(minLen, maxLen), Math.max(minLen, maxLen)], minLen = _b[0], maxLen = _b[1]
     var interval = Math.abs(max - min)
     var maybePrimeFactor = parseInt(interval.toString().replaceAll('0', ''))
     while (Number.isPrime(maybePrimeFactor) && !Math.hasPrimeFactorOf(minLen, maxLen, maybePrimeFactor)) {
@@ -119,5 +144,40 @@ Math.getBestArithmeticSequence = function (min, max, minLen, maxLen) {
         }
     }
     // fallback
-    return [min, max]
+    return [max, min]
+}
+Math.getBestArithmeticSequence = function (min, max, desiredLen) {
+    var _a
+    // 修正輸入的參數，確保皆為整數，且大小排序正確
+    _a = [Math.min(min, max), Math.max(min, max)], min = _a[0], max = _a[1]
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    desiredLen = Math.floor(Math.abs(desiredLen))
+    // 特殊情況就不需進入for迴圈
+    if (desiredLen <= 2)
+        return [min, max]
+    if (desiredLen >= max - min + 1)
+        return Math.getArithmeticSequence(min, 1, max - min)
+    var resultCandidate1 = [min, max]
+    var resultCandidate2 = [min, max]
+    var lastNumber
+    var tolerance
+    // 先從desiredLen的情況去找到最佳解
+    for (lastNumber = max; lastNumber >= min; lastNumber--) {
+        tolerance = (lastNumber - min) / (desiredLen - 1)
+        if (Number.isInteger(tolerance)) {
+            resultCandidate1 = Math.getArithmeticSequence(min, tolerance, desiredLen - 1)
+            break
+        }
+    }
+    // 再從desiredLen - 1的情況去找到最佳解
+    for (lastNumber = max; lastNumber >= min; lastNumber--) {
+        tolerance = (lastNumber - min) / (desiredLen - 2)
+        if (Number.isInteger(tolerance)) {
+            resultCandidate2 = Math.getArithmeticSequence(min, tolerance, desiredLen - 2)
+            break
+        }
+    }
+    // 交叉比對，看誰的最後一個數字最大，誰就是最佳解；如果一樣大，選擇最接近desiredLen的
+    return resultCandidate1.lastItem() >= resultCandidate2.lastItem() ? resultCandidate1 : resultCandidate2
 }
