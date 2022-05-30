@@ -1,3 +1,8 @@
+## 0.1.1 (2022-05-30)
+
+### changed
+    * Math.getBestArithmeticSequence
+
 ## 0.1.0 (2022-05-28)
 
 ### added

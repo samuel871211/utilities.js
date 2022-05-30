@@ -109,13 +109,12 @@ declare global {
          * 3. first index of output arithmetic sequence must = `min`
          * 
          * 4. last index of output arithmetic sequence must <= `max`
-         * 
-         * 5. length = `desiredLen` or `desiredLen` - 1 if possible
          * @param min An integer represents the start number of arithmetic sequence
          * @param max An integer represents the end number of arithmetic sequence
          * @param desiredLen An positive integer > 2 represents the desired output arithmetic sequence length
+         * @param opt.priority The tolerance of output arithmetic sequence will be as large as possible if `tolerance`. The length of output arithmetic sequence will be as long as possible if `desiredLen`. If not specified, it will select the best fit automatically
          */
-        getBestArithmeticSequence: (min: number, max: number, desiredLen: number) => number[]
+        getBestArithmeticSequence: (min: number, max: number, desiredLen: number, opt?: { priority?: 'tolerance' | 'desiredLen' } ) => number[]
     }
 }
 

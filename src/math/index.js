@@ -48,7 +48,6 @@ Math.getRandomFloatInclusive = function (min, max, opt) {
     else if (difference < 1) {
         // 假設difference = 0.25，先隨機生成0~24的正整數，加上Math.random()之後，再除以100，可確保 0 <= floatToBeAdd <= 0.25
         var decimalDigitsCount = Number.decimalDigitsCount(difference)
-        console.log({ difference: difference, lower: difference * Math.pow(10, decimalDigitsCount) - 1, 分數: Math.pow(10, decimalDigitsCount * -1) })
         var floatToBeAdd_1 = (Math.getRandomIntInclusive(0, difference * Math.pow(10, decimalDigitsCount) - 1) + Math.random()) * Math.pow(10, decimalDigitsCount * -1)
         if (floatToBeAdd_1 > difference)
             throw new Error('floatToBeAdd > difference')
@@ -146,38 +145,41 @@ Math.getBestDataInterval = function (min, max, minLen, maxLen) {
     // fallback
     return [max, min]
 }
-Math.getBestArithmeticSequence = function (min, max, desiredLen) {
+Math.getBestArithmeticSequence = function (min, max, desiredLen, opt) {
     var _a
     // 修正輸入的參數，確保皆為整數，且大小排序正確
     _a = [Math.min(min, max), Math.max(min, max)], min = _a[0], max = _a[1]
     min = Math.ceil(min)
     max = Math.floor(max)
     desiredLen = Math.floor(Math.abs(desiredLen))
+    var candidates = []
+    var theoryTolerance = (max - min) / (desiredLen - 1)
+    var maxTolerance = Math.floor((max - min) / 2)
+    var minTolerance = 1
+    var bestScoreOfCandidate = Number.MIN_SAFE_INTEGER
+    var bestCandidate = []
     // 特殊情況就不需進入for迴圈
     if (desiredLen <= 2)
         return [min, max]
     if (desiredLen >= max - min + 1)
         return Math.getArithmeticSequence(min, 1, max - min)
-    var resultCandidate1 = [min, max]
-    var resultCandidate2 = [min, max]
-    var lastNumber
-    var tolerance
-    // 先從desiredLen的情況去找到最佳解
-    for (lastNumber = max; lastNumber >= min; lastNumber--) {
-        tolerance = (lastNumber - min) / (desiredLen - 1)
-        if (Number.isInteger(tolerance)) {
-            resultCandidate1 = Math.getArithmeticSequence(min, tolerance, desiredLen - 1)
-            break
+    if ((opt === null || opt === void 0 ? void 0 : opt.priority) === 'desiredLen')
+        return Math.getArithmeticSequence(min, minTolerance, Math.min(Math.floor((max - min) / minTolerance) + 1, desiredLen) - 1)
+    if ((opt === null || opt === void 0 ? void 0 : opt.priority) === 'tolerance')
+        return Math.getArithmeticSequence(min, maxTolerance, Math.min(Math.floor((max - min) / maxTolerance) + 1, desiredLen) - 1)
+    // 計算所有可能的答案，有最佳解就提前停止
+    // |(等差數列末項 - max)| + |(實際公差 - 理論公差)|，分數越高代表越不完美，完美情況的分數 = 0，如果分數相同的情況，則會選取公差較小的
+    for (var t = minTolerance; t <= maxTolerance; t++) {
+        var lenOfArithmeticSequence = Math.min(Math.floor((max - min) / t) + 1, desiredLen)
+        var candidate = Math.getArithmeticSequence(min, t, lenOfArithmeticSequence - 1)
+        var scoreOfCandidate = (Math.abs(candidate.lastItem() - max) + Math.abs(t - theoryTolerance)) * -1 // 採取扣分制，滿分 = 0分
+        if (scoreOfCandidate === 0)
+            return candidate
+        if (scoreOfCandidate > bestScoreOfCandidate) {
+            bestScoreOfCandidate = scoreOfCandidate
+            bestCandidate = candidate
         }
+        candidates.push(candidate)
     }
-    // 再從desiredLen - 1的情況去找到最佳解
-    for (lastNumber = max; lastNumber >= min; lastNumber--) {
-        tolerance = (lastNumber - min) / (desiredLen - 2)
-        if (Number.isInteger(tolerance)) {
-            resultCandidate2 = Math.getArithmeticSequence(min, tolerance, desiredLen - 2)
-            break
-        }
-    }
-    // 交叉比對，看誰的最後一個數字最大，誰就是最佳解；如果一樣大，選擇最接近desiredLen的
-    return resultCandidate1.lastItem() >= resultCandidate2.lastItem() ? resultCandidate1 : resultCandidate2
+    return bestCandidate
 }
