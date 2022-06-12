@@ -1,6 +1,6 @@
-import './Array'
-import './Math'
-import './Number'
+import './Array/index.ts'
+import './Math/index.ts'
+import './Number/index.ts'
 
 describe('Array', () => {
     const dataSet = [
@@ -19,7 +19,17 @@ describe('Array', () => {
         test(`lastItem of ${data}`, () => {
             expect(data.lastItem()).toBe(data[data.length - 1])
         })
+        test(`shuffle of ${data}`, () => {
+            data.shuffle()
+            expect(data).toEqual(data)
+        })
     }
+    test('toInteger', () => {
+        expect([1,3,5].toInteger()).toBe(135)
+        expect([0,1,2].toInteger()).toBe(12)
+        expect([1,34,56].toInteger()).toBe(13456)
+        expect(['d'].toInteger()).toBeNaN()
+    })
 })
 
 describe('Math', () => {

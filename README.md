@@ -18,6 +18,7 @@ Contains many useful utility functions which built in JavaScript datatypes inter
     * getRandomItem: () => T
     * lastItem: () => T
     * lastIdx: () => number
+    * shuffle: () => void
 * NumberConstructor
     * isPrime: (num: number) => boolean
     * toExponentialPairs: (num: number) => [number, number]
@@ -44,6 +45,8 @@ const arr = [1, 2, 3]
 arr.getRandomItem()
 arr.lastItem()
 arr.lastIdx()
+arr.shuffle()
+arr.toInteger()
 
 Number.isPrime(2)
 Number.toExponentialPairs(2.56)

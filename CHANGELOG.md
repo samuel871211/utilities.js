@@ -1,3 +1,9 @@
+## 0.2.0 (2022-06-12)
+
+### added
+    * Array.prototype.shuffle
+    * Array.prototype.toInteger
+
 ## 0.1.1 (2022-05-30)
 
 ### changed

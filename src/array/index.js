@@ -9,3 +9,14 @@ Array.prototype.lastIdx = function () {
 Array.prototype.lastItem = function () {
     return this[this.length - 1]
 }
+Array.prototype.shuffle = function () {
+    for (var i = this.lastIdx(); i > 0; i--) {
+        var idx = Math.floor(Math.random() * (i + 1))
+        var temp = this[i]
+        this[i] = this[idx]
+        this[idx] = temp
+    }
+}
+Array.prototype.toInteger = function () {
+    return parseInt(this.join(''))
+}

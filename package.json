@@ -1,6 +1,6 @@
 {
   "name": "@samuel871211/utils",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Contains many useful utility functions which built in JavaScript datatypes internally",
   "main": "index.js",
   "types": "src/index.d.ts",
@@ -31,12 +31,13 @@
   },
   "homepage": "https://github.com/samuel871211/utils.js#readme",
   "devDependencies": {
-    "@types/jest": "^27.5.1",
-    "@typescript-eslint/eslint-plugin": "^5.25.0",
-    "@typescript-eslint/parser": "^5.25.0",
-    "eslint": "^8.15.0",
-    "jest": "^28.1.0",
-    "ts-jest": "^28.0.2",
-    "typescript": "^4.6.4"
+    "@types/jest": "^28.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "eslint": "^8.17.0",
+    "jest": "^28.1.1",
+    "npm-check-updates": "^13.1.3",
+    "ts-jest": "^28.0.4",
+    "typescript": "^4.7.3"
   }
 }

@@ -3,6 +3,19 @@ declare global {
         getRandomItem: () => T
         lastItem: () => T
         lastIdx: () => number
+        /**
+         * Shuffles the items in the array inplace. It uses Math.random internally. 
+         * Big(O) = n, where n is the length of the array
+         */
+        shuffle: () => void
+        /**
+         * Transfer an array of integers to a concated integer, return NaN otherwise.
+         * @example [1,2,3,4,5].toInteger() => 12345
+         * @example ['0', '1', '2', '3'].toInteger() => 123
+         * @example ['13', '02', '45'].toInteger() => 130245
+         * Big(O) = n, where n is the length of the array
+         */
+        toInteger: () => number
     }
     interface NumberConstructor {
         isPrime: (num: number) => boolean
@@ -115,7 +128,7 @@ declare global {
          * @param opt.priority The tolerance of output arithmetic sequence will be as large as possible if `tolerance`. The length of output arithmetic sequence will be as long as possible if `desiredLen`. If not specified, it will select the best fit automatically
          */
         getBestArithmeticSequence: (min: number, max: number, desiredLen: number, opt?: { priority?: 'tolerance' | 'desiredLen' } ) => number[]
-    }
+    }   
 }
 
 export {}
