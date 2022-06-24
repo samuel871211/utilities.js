@@ -14,6 +14,7 @@ Contains many useful utility functions which built in JavaScript datatypes inter
     * getRandomEnglishString: (len: number) => string
     * getBestDataInterval: (min: number, max: number, minLen: number = 5, maxLen: number = 15) => number[]
     * getBestArithmeticSequence: (min: number, max: number, desiredLen: number) => number[]
+    * getRandomChineseString (len: number) => string
 * Array
     * getRandomItem: () => T
     * lastItem: () => T
