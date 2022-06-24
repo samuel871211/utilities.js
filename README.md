@@ -40,6 +40,7 @@ Math.getColumnIndexSign(1)
 Math.getRandomEnglishString(1)
 Math.getBestDataInterval(1, 2, 3, 4)
 Math.getBestArithmeticSequence(1, 3, 2)
+Math.getRandomChineseString(1)
 
 const arr = [1, 2, 3]
 arr.getRandomItem()

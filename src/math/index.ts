@@ -85,13 +85,13 @@ Math.getColumnIndexSign = function (columnIdx: number) {
 Math.getRandomEnglishString = function (len: number) {
     if (len <= 0) return ''
     const result = []
-    const A = 65
-    const Z = 90
-    const a = 97
-    const z = 122
+    const ASCII_A = 65
+    const ASCII_Z = 90
+    const ASCII_a = 97
+    const ASCII_z = 122
     for (let i = 0; i < len; i++) {
         const isLowerCase = Math.getRandomIntInclusive(0, 1) === 0
-        const charCode = isLowerCase ? Math.getRandomIntInclusive(A, Z) : Math.getRandomIntInclusive(a, z)
+        const charCode = isLowerCase ? Math.getRandomIntInclusive(ASCII_A, ASCII_Z) : Math.getRandomIntInclusive(ASCII_a, ASCII_z)
         result.push(String.fromCharCode(charCode))
     }
     return result.join('')
@@ -156,6 +156,18 @@ Math.getBestArithmeticSequence = function (min: number, max: number, desiredLen:
         candidates.push(candidate)
     }
     return bestCandidate
+}
+Math.getRandomChineseString = function (len: number) {
+    if (len <= 0) return ''
+
+    const startCharCode = parseInt('4e00', 16)
+    const endCharCode = parseInt('9fa5', 16)
+    const result = []
+    for (let i = 0; i < len; i++) {
+        const charCode = Math.getRandomIntInclusive(startCharCode, endCharCode)
+        result.push(String.fromCharCode(charCode))
+    }
+    return result.join('')
 }
 
 export {}

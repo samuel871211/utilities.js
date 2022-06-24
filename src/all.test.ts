@@ -183,6 +183,12 @@ describe('Math', () => {
         expect(Math.getBestArithmeticSequence(1,30,7)).toEqual([1,8,15,22,29])
         expect(Math.getBestArithmeticSequence(1,30,8)).toEqual([1,5,9,13,17,21,25,29])
     })
+    test('getRandomString', () => {
+        for (let i = 0; i <= 10; i++) {
+            expect(Math.getRandomEnglishString(i).length).toBe(i)
+            expect(Math.getRandomChineseString(i).length).toBe(i)
+        }
+    })
 })
 
 describe('Number', () => {

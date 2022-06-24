@@ -1,3 +1,8 @@
+## 0.3.0 (2022-06-24)
+
+# added
+    * Math.getRandomChineseString
+
 ## 0.2.0 (2022-06-12)
 
 ### added

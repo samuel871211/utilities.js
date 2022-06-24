@@ -128,6 +128,12 @@ declare global {
          * @param opt.priority The tolerance of output arithmetic sequence will be as large as possible if `tolerance`. The length of output arithmetic sequence will be as long as possible if `desiredLen`. If not specified, it will select the best fit automatically
          */
         getBestArithmeticSequence: (min: number, max: number, desiredLen: number, opt?: { priority?: 'tolerance' | 'desiredLen' } ) => number[]
+
+        /**
+         * @param len Length of the output Chinese string
+         * @returns A random Chinese string with given length
+         */
+         getRandomChineseString: (len: number) => string
     }   
 }
 
