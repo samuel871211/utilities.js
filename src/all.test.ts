@@ -189,6 +189,41 @@ describe('Math', () => {
             expect(Math.getRandomChineseString(i).length).toBe(i)
         }
     })
+    test('nearestMultiple', () => {
+        expect(Math.nearestMultiple({ of: 25, to: 4})).toBe(24)
+        expect(Math.nearestMultiple({ of: 25, to: 10})).toBe(30)
+        expect(Math.nearestMultiple({of: 119, to: 20})).toBe(120)
+        expect(Math.nearestMultiple({of: 109, to: 20})).toBe(100)
+        expect(Math.nearestMultiple({of: 109, to: -1})).toBe(109)
+    })
+    test('distanceBetween', () => {
+        expect(Math.distanceBetween({ x: 30, y: 40 }, { x: 40, y: 40 })).toBe(10)
+        expect(Math.distanceBetween({ x: 30, y: 40 }, { x: 0, y: 0 })).toBe(50)
+    })
+    test('isArea1InArea2', () => {
+        expect(Math.isArea1InArea2({
+            'x': 560,
+            'y': 140,
+            'width': 80,
+            'height': 80
+        }, {
+            'x': 560,
+            'y': 140,
+            'width': 80,
+            'height': 80
+        })).toBe(true)
+        expect(Math.isArea1InArea2({
+            'x': 560,
+            'y': 140,
+            'width': 80,
+            'height': 80
+        }, {
+            'x': 560,
+            'y': 140,
+            'width': 60,
+            'height': 80
+        })).toBe(false)
+    })
 })
 
 describe('Number', () => {

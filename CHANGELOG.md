@@ -1,3 +1,10 @@
+## 0.4.0 (2022-06-26)
+
+# added
+    * Math.nearestMultiple
+    * Math.distanceBetween
+    * Math.isArea1InArea2
+
 ## 0.3.0 (2022-06-24)
 
 # added

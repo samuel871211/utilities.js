@@ -15,6 +15,12 @@ Contains many useful utility functions which built in JavaScript datatypes inter
     * getBestDataInterval: (min: number, max: number, minLen: number = 5, maxLen: number = 15) => number[]
     * getBestArithmeticSequence: (min: number, max: number, desiredLen: number) => number[]
     * getRandomChineseString (len: number) => string
+    * nearestMultiple: (args: { of: number, to: number }) => number
+    * distanceBetween: (pointA: { x: number, y: number }, pointB: { x: number, y: number }) => number
+    * isArea1InArea2: (
+            area1: { x: number, y: number, width: number, height: number },
+            area2: { x: number, y: number, width: number, height: number }
+        ) => boolean
 * Array
     * getRandomItem: () => T
     * lastItem: () => T
@@ -42,6 +48,9 @@ Math.getRandomEnglishString(1)
 Math.getBestDataInterval(1, 2, 3, 4)
 Math.getBestArithmeticSequence(1, 3, 2)
 Math.getRandomChineseString(1)
+Math.nearestMultiple: ({ of: 119, to: 20 })
+Math.distanceBetween: ({ x: 30, y: 30 }, { x: 40, y: 40 })
+Math.isArea1InArea2: ({ x: 1, y: 1, width: 20, height: 20 }, { x: 2, y: 2, width: 3, height: 3 })
 
 const arr = [1, 2, 3]
 arr.getRandomItem()

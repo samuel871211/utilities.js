@@ -1,4 +1,4 @@
-Math.hasPrimeFactorOf = function (min: number, max: number, divisor: number) {
+Math.hasPrimeFactorOf = function (min, max, divisor) {
     [min, max] = [Math.min(min, max), Math.max(min, max)]
     min = Math.floor(min)
     max = Math.ceil(max)
@@ -7,7 +7,7 @@ Math.hasPrimeFactorOf = function (min: number, max: number, divisor: number) {
     }
     return false
 }
-Math.hasMultipleOf = function (min: number, max: number, dividend: number) {
+Math.hasMultipleOf = function (min, max, dividend) {
     [min, max] = [Math.min(min, max), Math.max(min, max)]
     min = Math.floor(min)
     max = Math.ceil(max)
@@ -16,14 +16,14 @@ Math.hasMultipleOf = function (min: number, max: number, dividend: number) {
     }
     return false
 }
-Math.getRandomIntInclusive = function (min: number, max: number) {
+Math.getRandomIntInclusive = function (min, max) {
     [min, max] = [Math.min(min, max), Math.max(min, max)]
     if (Math.ceil(min) === Math.ceil(max)) return min
     min = Math.ceil(min)
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
-Math.getRandomFloatInclusive = function (min: number, max: number, opt?: { decimalDigits?: number }) {
+Math.getRandomFloatInclusive = function (min, max, opt) {
     [min, max] = [Math.min(min, max), Math.max(min, max)]
     const decimalDigits = opt?.decimalDigits
     const integerToBeAdd = Math.getRandomIntInclusive(0, Math.floor(max - min))
@@ -42,7 +42,7 @@ Math.getRandomFloatInclusive = function (min: number, max: number, opt?: { decim
     result += floatToBeAdd
     return decimalDigits ? parseFloat(result.toFixed(decimalDigits)) : result
 }
-Math.getArithmeticSequence = function (start: number, tolerance: number, count: number) {
+Math.getArithmeticSequence = function (start, tolerance, count) {
     tolerance = parseFloat(tolerance.toFixed(1))
     const result = [start]
     let currentNumber = start
@@ -52,7 +52,7 @@ Math.getArithmeticSequence = function (start: number, tolerance: number, count: 
     }
     return result
 }
-Math.fixMinMaxInterval = function (min: number, max: number): [number, number] {
+Math.fixMinMaxInterval = function (min, max) {
     [min, max] = [Math.min(min, max), Math.max(min, max)]
     if (min > 0) min = 0
     if (max < 0) max = 0
@@ -65,11 +65,11 @@ Math.fixMinMaxInterval = function (min: number, max: number): [number, number] {
     max = Math.ceil(max / multiplier) * multiplier
     return [min, max]
 }
-Math.getGeometricSeries = function (base: number, power: number) {
+Math.getGeometricSeries = function (base, power) {
     if (base === 1) return power + 1
     return 1 * (1 - Math.pow(base, power + 1)) / (1 - base)
 }
-Math.getColumnIndexSign = function (columnIdx: number) {
+Math.getColumnIndexSign = function (columnIdx) {
     columnIdx = Math.floor(columnIdx)
     if (columnIdx <= 0 || isNaN(columnIdx)) return 'A'
     const quotient = Math.floor((columnIdx - 1) / 26)
@@ -82,7 +82,7 @@ Math.getColumnIndexSign = function (columnIdx: number) {
     if (digits === 2) return `${String.fromCharCode(quotient + 64)}${String.fromCharCode(remainder + 65)}`
     return 'ZZ'
 }
-Math.getRandomEnglishString = function (len: number) {
+Math.getRandomEnglishString = function (len) {
     if (len <= 0) return ''
     const result = []
     const ASCII_A = 65
@@ -96,7 +96,7 @@ Math.getRandomEnglishString = function (len: number) {
     }
     return result.join('')
 }
-Math.getBestDataInterval = function (min: number, max: number, minLen = 5, maxLen = 15) {
+Math.getBestDataInterval = function (min, max, minLen = 5, maxLen = 15) {
     [min, max] = Math.fixMinMaxInterval(min, max);
     [minLen, maxLen] = [Math.min(minLen, maxLen), Math.max(minLen, maxLen)]
     let interval = Math.abs(max - min)
@@ -122,7 +122,7 @@ Math.getBestDataInterval = function (min: number, max: number, minLen = 5, maxLe
     // fallback
     return [max, min]
 }
-Math.getBestArithmeticSequence = function (min: number, max: number, desiredLen: number, opt?: { priority?: 'tolerance' | 'desiredLen' } ) {
+Math.getBestArithmeticSequence = function (min, max, desiredLen, opt) {
     // 修正輸入的參數，確保皆為整數，且大小排序正確
     [min, max] = [Math.min(min, max), Math.max(min, max)]
     min = Math.ceil(min)
@@ -157,7 +157,7 @@ Math.getBestArithmeticSequence = function (min: number, max: number, desiredLen:
     }
     return bestCandidate
 }
-Math.getRandomChineseString = function (len: number) {
+Math.getRandomChineseString = function (len) {
     if (len <= 0) return ''
 
     const startCharCode = parseInt('4e00', 16)
@@ -168,6 +168,24 @@ Math.getRandomChineseString = function (len: number) {
         result.push(String.fromCharCode(charCode))
     }
     return result.join('')
+}
+Math.nearestMultiple = function (args) {
+    const { of, to } = args
+    if (to <= 0) return of
+    const remainder = of % to
+    if (remainder >= to / 2) return of + to - remainder
+    return of - remainder
+}
+Math.distanceBetween = function (pointA, pointB) {
+    return Math.sqrt(Math.pow((pointB.x - pointA.x), 2) + Math.pow((pointB.y - pointA.y), 2))
+}
+Math.isArea1InArea2 = function (area1, area2) {
+    return (
+        area2.x <= area1.x &&
+        area2.y <= area1.y &&
+        area2.x + area2.width >= area1.x + area1.width &&
+        area2.y + area2.height >= area1.y + area1.height
+    )
 }
 
 export {}

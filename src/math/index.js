@@ -195,3 +195,21 @@ Math.getRandomChineseString = function (len) {
     }
     return result.join('');
 };
+Math.nearestMultiple = function (args) {
+    var of = args.of, to = args.to;
+    if (to <= 0)
+        return of;
+    var remainder = of % to;
+    if (remainder >= to / 2)
+        return of + to - remainder;
+    return of - remainder;
+};
+Math.distanceBetween = function (pointA, pointB) {
+    return Math.sqrt(Math.pow((pointB.x - pointA.x), 2) + Math.pow((pointB.y - pointA.y), 2));
+};
+Math.isArea1InArea2 = function (area1, area2) {
+    return (area2.x <= area1.x &&
+        area2.y <= area1.y &&
+        area2.x + area2.width >= area1.x + area1.width &&
+        area2.y + area2.height >= area1.y + area1.height);
+};

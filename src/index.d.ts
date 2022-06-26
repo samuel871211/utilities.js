@@ -133,7 +133,22 @@ declare global {
          * @param len Length of the output Chinese string
          * @returns A random Chinese string with given length
          */
-         getRandomChineseString: (len: number) => string
+        getRandomChineseString: (len: number) => string
+        /**
+         * @example nearestMultiple({of: 119, to: 20}) = 120, because 119 is closer to 120(20 * 6) instead of 100(20 * 5)
+         * @example nearestMultiple({of: 109, to: 20}) = 100, because 109 is closer to 100(20 * 5) instead of 120(20 * 6)
+         */
+        nearestMultiple: (args: { of: number, to: number }) => number
+        /**
+         * @param pointA A point represent as { x: number: y: number }
+         * @param pointB As above
+         * @returns the distance between `pointA` and `pointB`
+         */
+        distanceBetween: (pointA: { x: number, y: number }, pointB: { x: number, y: number }) => number
+        isArea1InArea2: (
+            area1: { x: number, y: number, width: number, height: number },
+            area2: { x: number, y: number, width: number, height: number }
+        ) => boolean
     }   
 }
 
