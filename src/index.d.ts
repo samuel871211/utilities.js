@@ -111,7 +111,7 @@ declare global {
          * @param minLen An positive integer > 2 represents the desired output arithmetic sequence min length, Default 5
          * @param maxLen An positive integer > 2 represents the desired output arithmetic sequence max length, Default 15
          */
-        getBestDataInterval: (min: number, max: number, minLen: number = 5, maxLen: number = 15) => number[]
+        getBestDataInterval: (min: number, max: number, minLen: number, maxLen: number) => number[]
         /**
          * Given interval [`min`, `max`] and desired output length interval [`minLen`, `maxLen`], return the best fit arithmetic sequence, return [`min`, `max`] if there is no best fit. The output arithmetic sequence must have below constrains:
          * 
